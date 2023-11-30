@@ -17,12 +17,9 @@ function nextSequance() {
   return gamePattern;
 }
 
+
 console.log(gamePattern);
 
-document.addEventListener("click", function (e) {
-  playSound(this.e);
-});
-playSound(gamePattern);
 
 function playSound(array) {
   if (array == "red") {
@@ -45,19 +42,19 @@ function playSound(array) {
 /* function makeSound(className) {
   switch (className) {
     case ".red":
-      let redSound = new Audio(sounds / red.mp3);
+      let redSound = new Audio(sounds/red.mp3);
       redSound.play();
       break;
     case ".yellow":
-      let yellowSound = new Audio(sounds / yellow.mp3);
+      let yellowSound = new Audio(sounds/yellow.mp3);
       yellowSound.play();
       break;
     case ".blue":
-      let blueSound = new Audio(sounds / blue.mp3);
+      let blueSound = new Audio(sounds/blue.mp3);
       blueSound.play();
       break;
     case ".green":
-      let greenSound = new Audio(sounds / green.mp3);
+      let greenSound = new Audio(sounds/green.mp3);
       greenSound.play();
       break;
     default:
