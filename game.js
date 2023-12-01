@@ -9,10 +9,10 @@ function nextSequance() {
   $("#" + randomChosenColour)
     .fadeOut(100)
     .fadeIn(100);
+    
+    gamePattern.push(randomChosenColour);
+    playSound(randomChosenColour);
 
-  gamePattern.push(randomChosenColour);
-
-  playSound(gamePattern);
 
   return gamePattern;
 }
@@ -38,6 +38,7 @@ function playSound(array) {
     console.log(array);
   }
 }
+
 
 /* function makeSound(className) {
   switch (className) {
