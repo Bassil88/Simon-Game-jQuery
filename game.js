@@ -1,5 +1,7 @@
 let gamePattern = [];
 
+let userClickedPattern = [];
+
 let buttonColours = ["red", "blue", "green", "yellow"];
 
 function nextSequance() {
@@ -15,7 +17,7 @@ function nextSequance() {
 
 
   return gamePattern;
-}
+};
 
 
 console.log(gamePattern);
@@ -40,25 +42,13 @@ function playSound(array) {
 }
 
 
-/* function makeSound(className) {
-  switch (className) {
-    case ".red":
-      let redSound = new Audio(sounds/red.mp3);
-      redSound.play();
-      break;
-    case ".yellow":
-      let yellowSound = new Audio(sounds/yellow.mp3);
-      yellowSound.play();
-      break;
-    case ".blue":
-      let blueSound = new Audio(sounds/blue.mp3);
-      blueSound.play();
-      break;
-    case ".green":
-      let greenSound = new Audio(sounds/green.mp3);
-      greenSound.play();
-      break;
-    default:
-      gamePattern;
-  }
-} */
+
+
+$('.btn').on('click', function(){
+
+  let userChosenColour = $(this).attr("id")
+  userClickedPattern.push(userChosenColour);
+  console.log(userClickedPattern); 
+
+})
+
