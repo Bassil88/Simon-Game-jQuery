@@ -30,8 +30,11 @@ $(".btn").on("click", function () {
 
   animatePress(userChosenColour);
 
-  console.log(userClickedPattern);
+  //checkAnswer(userClickedPattern)
+
+  console.log('userClickedPattern',userClickedPattern);
 });
+
 
 function playSound(name) {
   let playSound = new Audio("sounds/" + name + ".mp3");
@@ -42,4 +45,21 @@ function animatePress(currentColour) {
   let activeClick = $("." + currentColour);
   setTimeout(() => activeClick.removeClass("pressed"), 100);
   activeClick.addClass("pressed");
+}
+
+let level = 0;
+$('body').on('keydown',(e)=>{
+  nextSequance(e.key)
+  level++;
+  $('#level-title').html(`Level: ${level}`)
+})
+
+
+function checkAnswer(currentLevel){
+  if( currentLevel[-1] == gamePattern[-1]){
+ console.log("you got it right");
+  }else{
+  $('#level-title').html('Worng guess!')
+
+  }
 }
