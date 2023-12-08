@@ -16,10 +16,9 @@ function nextSequance() {
 
   gamePattern.push(randomChosenColour);
 
+  console.log("gamePattern", gamePattern);
   return gamePattern;
 }
-
-console.log(gamePattern);
 
 $(".btn").on("click", function () {
   let userChosenColour = $(this).attr("id");
@@ -30,11 +29,19 @@ $(".btn").on("click", function () {
 
   animatePress(userChosenColour);
 
-  //checkAnswer(userClickedPattern)
+  checkAnswer(userClickedPattern[0]);
+  gamePattern.pop();
+  clearingUserSelectedColorArr();
 
-  console.log('userClickedPattern',userClickedPattern);
+  console.log("userClickedPattern", userClickedPattern);
+  return myTimeOutSequence;
 });
-
+function clearingUserSelectedColorArr() {
+  if (gamePattern.length == 0) {
+    userClickedPattern.pop();
+    setTimeout(nextSequance, 1000);
+  }
+}
 
 function playSound(name) {
   let playSound = new Audio("sounds/" + name + ".mp3");
@@ -48,18 +55,24 @@ function animatePress(currentColour) {
 }
 
 let level = 0;
-$('body').on('keydown',(e)=>{
-  nextSequance(e.key)
+$("body").on("keydown", (e) => {
+  nextSequance(e.key);
   level++;
-  $('#level-title').html(`Level: ${level}`)
-})
+  $("#level-title").html(`Level: ${level}`);
+});
 
+function checkAnswer(currentLevel) {
+  //for(let i = 0; i < currentLevel.length; i++)
+  if (currentLevel !== gamePattern[0]) {
+    alert("Wrong");
 
-function checkAnswer(currentLevel){
-  if( currentLevel[-1] == gamePattern[-1]){
- console.log("you got it right");
-  }else{
-  $('#level-title').html('Worng guess!')
-
+    /*     let timeOutId = setTimeout(()=>{
+      $('#level-title').html('Correct!')
+      
+    },200)
+    clearTimeout(timeOutId) */
+  } else {
+    $("#level-title").html("Correct!");
+    console.log("userClickedPattern", userClickedPattern);
   }
 }
