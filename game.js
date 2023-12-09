@@ -4,6 +4,9 @@ let gamePattern = [];
 
 let userClickedPattern = [];
 
+let level = 1;
+
+
 function nextSequance() {
   let randomNumber = Math.floor(Math.random() * 4);
   let randomChosenColour = buttonColours[randomNumber];
@@ -11,6 +14,11 @@ function nextSequance() {
   $("#" + randomChosenColour)
     .fadeOut(100)
     .fadeIn(100);
+
+    $("#level-title").html(`Level: ${level}`);
+  $("body").removeClass('game-over');
+
+
 
   playSound(randomChosenColour);
 
@@ -34,12 +42,14 @@ $(".btn").on("click", function () {
   clearingUserSelectedColorArr();
 
   console.log("userClickedPattern", userClickedPattern);
-  return myTimeOutSequence;
+  // return myTimeOutSequence;
 });
+
 function clearingUserSelectedColorArr() {
   if (gamePattern.length == 0) {
     userClickedPattern.pop();
-    setTimeout(nextSequance, 1000);
+    let nextSequanceHandler = setTimeout(nextSequance, 1000);
+    nextSequanceHandler;
   }
 }
 
@@ -54,25 +64,37 @@ function animatePress(currentColour) {
   activeClick.addClass("pressed");
 }
 
-let level = 0;
+
 $("body").on("keydown", (e) => {
   nextSequance(e.key);
-  level++;
-  $("#level-title").html(`Level: ${level}`);
 });
 
+function bodyFlash(className) {
+  $("body").addClass(className);
+  setTimeout($(className).removeClass(className), 200);
+}
 function checkAnswer(currentLevel) {
-  //for(let i = 0; i < currentLevel.length; i++)
   if (currentLevel !== gamePattern[0]) {
-    alert("Wrong");
-
-    /*     let timeOutId = setTimeout(()=>{
-      $('#level-title').html('Correct!')
-      
-    },200)
-    clearTimeout(timeOutId) */
+    startOver()
+    
   } else {
-    $("#level-title").html("Correct!");
+    console.log("Success!");
+    level++;
+    
+    
     console.log("userClickedPattern", userClickedPattern);
   }
+}
+
+function startOver(){
+  let wrongClicked = new Audio("sounds/wrong.mp3");
+  wrongClicked.play();
+  
+  $("#level-title").html("Game Over,<br> Press Any Key to Restart");
+  
+  level = 1;
+  gamePattern.length = 0;
+  userClickedPattern.length = 0;
+  $("body").addClass('game-over');
+  clearTimeout(nextSequanceHandler);
 }
